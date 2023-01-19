@@ -14,7 +14,7 @@ function App() {
     console.log(value);
     result = data.filter((data) => {
       // console.log(typeof(inputData.name.common))
-      return data.name.official.toLowerCase().search(value) !== -1;
+      return ((data.name.official.toLowerCase().search(value) !== -1) || (data.cca3.toLowerCase().search(value) !== -1));
     });
     console.log(result);
     setFilteredData(result);
@@ -39,7 +39,7 @@ function App() {
         let sortedData = initialData.sort((a, b) => (a.name.official < b.name.official) ? -1 : (a.name.official > b.name.official) ? 1 : 0);
         setData(sortedData);
         setFilteredData(sortedData);
-        console.log(response.data[1]);
+        console.log(response.data[1].cca3);
       }
       catch(err) {
         console.log(err)
@@ -56,8 +56,8 @@ function App() {
         <label>Filter: </label>
         <input type="text" onChange={(event) =>handleSearch(event)} />
         <ul>
-          { filteredData && filteredData.map(({ name }) => { 
-            return(<div style={styles}><li><span className='text-wrapper'>{name.official}</span></li></div>)
+          { filteredData && filteredData.map(({ name,cca3 }) => { 
+            return(<div style={styles}><li key={cca3}><span className='text-wrapper'>{cca3}: </span><span className='text-wrapper'>{name.official}</span></li></div>)
           })}
         </ul>
       </div>
