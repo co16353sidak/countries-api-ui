@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css';
 
 function App() {
 
@@ -18,6 +19,17 @@ function App() {
     console.log(result);
     setFilteredData(result);
   }
+
+  const styles = {
+    display:'inline',
+    width:'30%',
+    height:50,
+    float:'left',
+    padding:5,
+    border:'0.5px solid black',
+    marginBottom:10,
+    marginRight:10
+    }
 
   useEffect( () => {
     async function getData() {
@@ -39,14 +51,16 @@ function App() {
 
   return (
     <div className="App">
-      <h1>List of Countries</h1>
-      <label>Filter: </label>
-      <input type="text" onChange={(event) =>handleSearch(event)} />
-      <ul>
-        { filteredData && filteredData.map(({ name }) => { 
-          return(<li>{name.official}</li>)
-        })}
-      </ul>
+      <div>
+        <h1>List of Countries</h1>
+        <label>Filter: </label>
+        <input type="text" onChange={(event) =>handleSearch(event)} />
+        <ul>
+          { filteredData && filteredData.map(({ name }) => { 
+            return(<div style={styles}><li><span className='text-wrapper'>{name.official}</span></li></div>)
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
